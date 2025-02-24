@@ -12,8 +12,12 @@ import os
 TWILIO_SID = os.getenv('TWILIO_SID')
 TWILIO_AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')
 
+# setting numbers from which the msg is sent and received
+TWILIO_NUMBER = os.getenv('TWILIO_NUMBER')
+MY_NUMBER = os.getenv('MY_NUMBER')
+
 # smtplib credentials to send email in case twilio doesn't work
-EMAIL = 'davidecatozzi0@gmail.com'
+EMAIL = os.getenv('EMAIL')
 APP_PASSWORD = os.getenv('PYTHON_APP_PASSWORD')
 
 # openweather api endpoint to retrieve weather data and credentials
@@ -77,15 +81,17 @@ for msg, i in zip(msg_list, range(0, len(msg_list))):
     else:
         body_msg += msg + '.'
 full_msg = header + body_msg
+# print(full_msg)
 
 if full_msg:
     try:
         client = Client(TWILIO_SID, TWILIO_AUTH_TOKEN)
         message = client.messages.create(
-            from_='whatsapp:+14155238886',
+            from_='whatsapp:' + TWILIO_NUMBER,
             body=full_msg,
-            to='whatsapp:+393271465724',
+            to='whatsapp:' + MY_NUMBER,
         )
+        # print('success twilio')
 
     except:
         email = EmailMessage()
@@ -98,3 +104,5 @@ if full_msg:
         connection.starttls()
         connection.login(EMAIL, APP_PASSWORD)
         connection.send_message(email)
+        # print('success email')
+    
