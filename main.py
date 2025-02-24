@@ -3,10 +3,10 @@ from twilio.rest import Client
 import smtplib
 from email.message import EmailMessage
 import os
-import dotenv
+# import dotenv
 
 # load files with ENV variables
-dotenv.load_dotenv(dotenv_path='C:/Users/mcato/100 Days Of Code/Day 35/rain_alert_project/config.env')
+# dotenv.load_dotenv(dotenv_path='C:/Users/mcato/100 Days Of Code/Day 35/rain_alert_project/config.env')
 
 # twilio credentials to send sms with weather forecast
 TWILIO_SID = os.getenv('TWILIO_SID')
